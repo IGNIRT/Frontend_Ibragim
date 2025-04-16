@@ -1,0 +1,13 @@
+/* Подключение шрифтов */
+@import "fonts.css";
+
+@import "body.css";
+/*Логотип*/
+@import "logo.css";
+/*Шапка*/
+@import "header.css";
+/*Страница*/
+/*Главная страница*/
+@import "main.css";
+
+@import "background.css";
