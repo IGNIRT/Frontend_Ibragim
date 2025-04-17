@@ -258,54 +258,67 @@
     line-height: 35px;
     margin: 32px;
 }
-.subtitle{
+
+.subtitle {
     font-size: 24px;
-    line-height: 26px;    
+    line-height: 26px;
     margin: 78px;
 }
-.species__title-card-3{
+
+.species__title-card-3 {
     font-size: 24px;
     line-height: 26px;
 }
-.species__item-link--strato-enterprice{
+
+.species__item-link--strato-enterprice {
     text-decoration: none;
     color: #000000;
 }
-.species__item-link--strato-cloud-services{
+
+.species__item-link--strato-cloud-services {
     text-decoration: none;
     color: #000000;
 }
-.species__item-link--strato-enterprise{
+
+.species__item-link--strato-enterprise {
     text-decoration: none;
     color: #000000;
 }
-.species__item-link--strato-cloud-services{
+
+.species__item-link--strato-cloud-services {
     text-decoration: none;
     color: #000000;
 }
-.species__energy{
+
+.species__energy {
     margin: 39px;
     padding-top: 18px;
 }
-.species__system-integrators{
+
+.species__system-integrators {
     margin: -13px;
     padding: 68px;
 }
-.species__img{
+
+.species__img {
     padding-bottom: 5px;
 }
-.section__stories{
+
+.section__stories {
     display: flex;
     margin: 135px;
 }
-.stories__content{
+
+.stories__content {
     display: flex;
 }
-.stories{
+
+.stories {
     border: 1px solid black;
     height: 350px;
     width: 569px;
 }
+
 .create-line__2 {
     position: relative;
     width: 156px;
@@ -314,48 +327,114 @@
     left: 32px;
     margin: 32px;
 }
-.stories__item-link--our-collaborations{
+
+.stories__item-link--our-collaborations {
     text-decoration: none;
     color: #000000;
     font-size: 16px;
     line-height: 16px;
     margin: 65px;
 }
-.stories__text{
+
+.stories__text {
     font-size: 15px;
     line-height: 23px;
     margin: 65px;
 }
-.stories__title{
+
+.stories__title {
     font-size: 35px;
     line-height: 39px;
     margin: 65px;
 }
-.section__products{ 
+
+.section__products {
     display: flex;
 }
-.products__content{
+
+.products__content {
     display: flex;
     flex-wrap: nowrap;
-    background-color:  rgba(248, 114, 0, 1);
+    background-color: rgba(248, 114, 0, 1);
 }
-.products__title{
+
+.products__title {
     font-size: 35px;
     line-height: 39px;
     margin: 72px;
 }
-.products__item-link--products-list{
+
+.products__item-link--products-list {
     text-decoration: none;
     color: #000000;
     font-size: 16px;
     line-height: 16px;
     margin: 72px;
 }
-.product__line{
+
+.product__line {
     position: relative;
     width: 156px;
     border-top: 1px solid #252930CC;
     bottom: 18px;
     left: 32px;
     margin: 32px;
+}
+
+.news__product-news {
+    margin: 40px;
+    padding-top: 88px;
+}
+
+.news__title {
+    font-size: 36px;
+    line-height: 39px;
+}
+
+.news__user-col {
+    margin: 40px;
+}
+
+.news__card-1-2-3 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.news__item-link--active {
+    color: rgba(248, 114, 0, 1);
+    text-decoration: none;
+}
+
+.news__item-link--documentation {
+    text-decoration: none;
+    color: #000000;
+}
+
+.news__content {
+    padding-top: 95px;
+}
+
+.news__doc {
+    background: rgba(248, 114, 0, 1);
+    width: 460px;
+    height: 483px;
+}
+
+.news__title--doc {
+    font-size: 36px;
+    line-height: 39px;
+}
+
+.doc__content {
+    margin: 32px;
+}
+
+.doc__line {
+    border: 1px solid black;
+    width: 163px;
+}
+
+.line__card-1-2-3 {
+    border: 1px solid black;
+    width: 163px;
 }
