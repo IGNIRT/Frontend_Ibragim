@@ -1,74 +1,11 @@
-/* iPhone 5, 5S, 5C, 5 SE (портретный режим) */
-@media only screen and (orientation: portrait) and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {}
-
-/* iPhone 5, 5S, 5C, 5 SE (альбомный режим) */
-@media only screen and (orientation: landscape) and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {}
-
-/* iPhone 6, 6S, 7, 8, SE 2020 (портретный режим) */
-@media only screen and (orientation: portrait) and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {}
-
-/* iPhone 6, 6S, 7, 8, SE 2020 (альбомный режим) */
-@media only screen and (orientation: landscape) and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {}
-
-/* iPhone 6+, 7+, 8+ (портретный режим) */
-@media only screen and (orientation: portrait) and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) {}
-
-/* iPhone 6+, 7+, 8+ (альбомный режим) */
-@media only screen and (orientation: landscape) and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) {}
-
-/* iPhone X, XS, 11 Pro, 13 mini (портретный режим) */
-@media only screen and (orientation: portrait) and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {}
-
-/* iPhone X, XS, 11 Pro, 13 mini (альбомный режим) */
-@media only screen and (orientation: landscape) and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {}
-
-/* iPhone XS Max, XR, 11, 11 Pro Max (портретный режим) */
-@media only screen and (orientation: portrait) and (min-device-width: 414px) and (max-device-height: 896px) and (-webkit-device-pixel-ratio: 3) {}
-
-/* iPhone XS Max, XR, 11, 11 Pro Max (альбомный режим) */
-@media only screen and (orientation: landscape) and (min-device-width: 414px) and (max-device-height: 896px) and (-webkit-device-pixel-ratio: 3) {}
-
-/* iPhone XS Max, XR, 11, 11 Pro Max (портретный режим) */
-@media only screen and (orientation: portrait) and (min-device-width: 414px) and (max-device-height: 896px) and (-webkit-device-pixel-ratio: 3) {}
-
-/* iPhone XS Max, XR, 11, 11 Pro Max (альбомный режим) */
-@media only screen and (orientation: landscape) and (min-device-width: 414px) and (max-device-height: 896px) and (-webkit-device-pixel-ratio: 3) {}
-
-/* iPhone 12, 12 Pro, 13, 13 Pro (портретный режим) */
-@media only screen and (orientation: portrait) and (min-device-width: 390px) and (max-device-height: 844px) and (-webkit-device-pixel-ratio: 3) {}
-
-/* iPhone 12, 12 Pro, 13, 13 Pro (альбомный режим) */
-@media only screen and (orientation: landscape) and (min-device-width: 390px) and (max-device-height: 844px) and (-webkit-device-pixel-ratio: 3) {}
-
-/* iPhone 12 Pro Max, 13 Pro Max (портретный режим) */
-@media only screen and (orientation: portrait) and (min-device-width: 428px) and (max-device-height: 926px) and (-webkit-device-pixel-ratio: 3) {}
-
-/* iPhone 12 Pro Max, 13 Pro Max (альбомный режим) */
-@media only screen and (orientation: landscape) and (min-device-width: 428px) and (max-device-height: 926px) and (-webkit-device-pixel-ratio: 3) {}
-
-/* Samsung Galaxy S3 (портретный режим) */
-@media only screen and (orientation: portrait) and (min-device-width: 320px) and (max-device-height: 640px) and (-webkit-device-pixel-ratio: 2) {}
-
-/* Samsung Galaxy S3 (альбомный режим) */
-@media only screen and (orientation: landscape) and (min-device-width: 320px) and (max-device-height: 640px) and (-webkit-device-pixel-ratio: 2) {}
-
-/* Samsung Galaxy S4 (портретный режим) */
-@media only screen and (orientation: portrait) and (min-device-width: 320px) and (max-device-height: 640px) and (-webkit-device-pixel-ratio: 3) {}
-
-/* Samsung Galaxy S4 (альбомный режим) */
-@media only screen and (orientation: landscape) and (min-device-width: 320px) and (max-device-height: 640px) and (-webkit-device-pixel-ratio: 3) {}
-
-/* Samsung Galaxy S5 (портретный режим) */
-@media only screen and (orientation: portrait) and (min-device-width: 360px) and (max-device-height: 640px) and (-webkit-device-pixel-ratio: 3) {}
-
-/* Samsung Galaxy S5 (альбомный режим) */
-@media only screen and (orientation: landscape) and (min-device-width: 360px) and (max-device-height: 640px) and (-webkit-device-pixel-ratio: 3) {}
-
-/* iPad (все) */
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {}
-
 /* Только десктопы */
-@media (min-width: 1025px) {}
-
-/* Только большие экраны */
-@media only screen and (min-width : 1824px) {}
+/* @media all and (min-width: 1024px) {
+    
+}
+ */
+@media all and (display-mode: fullscreen) and (min-width: 1024px) and (max-aspect-ratio: 16/9) {
+    .body__container {
+        margin: 0px;
+        border: 5px solid black;
+    }
+}

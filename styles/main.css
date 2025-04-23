@@ -106,6 +106,7 @@
 .projects__content {
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 
 .projects__image {
