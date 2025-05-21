@@ -34,7 +34,7 @@ const cards = {
 function createCard(cardData) {
   return `
       <article class="projects__light" id="card-${cardData.cardID}">
-        <img class="projects__image" src="${cardData.img}" alt="">
+        <img class="projects__image" src="${cardData.img}" alt="${cardData.title}">
         <p class="projects__title__light">${cardData.title}</p>
         <p class="projects__subtitle__light">${cardData.subtitle}</p>
         <p class="projects__slogan__light">${cardData.content}</p>
@@ -55,20 +55,23 @@ function createCard(cardData) {
 }
 
 function renderCards() {
-  const container = document.getElementById("projects");
+  const container = document.getElementById("projects__content");
   if (!container) {
-    console.error('No container with id "projects" found in the DOM');
+    console.error('Container with id "projects" not found in the DOM');
     return;
   }
-
 
   container.innerHTML = "";
 
   for (const key in cards) {
-    const cardHTML = createCard(cards[key]);
-    container.insertAdjacentHTML("beforeend", cardHTML);
+    const cardData = cards[key];
+    if (cardData && cardData.cardID && cardData.img && cardData.title && cardData.subtitle && cardData.content) {
+      const cardHTML = createCard(cardData);
+      container.insertAdjacentHTML("beforeend", cardHTML);
+    } else {
+      console.error(`Card data for ${key} is missing required properties.`);
+    }
   }
 }
-
 
 document.addEventListener("DOMContentLoaded", renderCards);
