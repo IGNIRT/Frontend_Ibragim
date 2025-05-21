@@ -2,7 +2,7 @@ const cards = {
   card1: {
     cardID: "1",
     img: "/image/Rectangle_3.png",
-    title: "Light Commercial Buildingsовороте",
+    title: "Light Commercial Buildings",
     subtitle: "Strato",
     content: "Light Commercial",
     links1: "Extremely Simple",
@@ -33,32 +33,42 @@ const cards = {
 
 function createCard(cardData) {
   return `
-      <article class="projects__light">
-                        <img class="projects__image" src="${cardData.img}" alt="">
-                        <p class="projects__title__light">${cardData.title}</p>
-                        <p class="projects__subtitle__light">${cardData.subtitle}</p>
-                        <p class="projects__slogan__light">${cardData.content}</p>
-                        <div class="list__link">
-                            <a href="#" class="projects__item-link--active__light">
-                                <p>${cardData.links1}</p>
-                            </a>
-                            <div class="create-line"></div>
-                            <a href="#" class="projects__item-link_2--active__light">
-                                <p>${cardData.links2}</p>
-                            </a>
-                            <nav class="projects__nav">
-                                <a class="projects__item-link" href="#">${cardData.links3}</a>
-                            </nav>
-                        </div>
-         </article>
+      <article class="projects__light" id="card-${cardData.cardID}">
+        <img class="projects__image" src="${cardData.img}" alt="">
+        <p class="projects__title__light">${cardData.title}</p>
+        <p class="projects__subtitle__light">${cardData.subtitle}</p>
+        <p class="projects__slogan__light">${cardData.content}</p>
+        <div class="list__link">
+          <a href="#" class="projects__item-link--active__light">
+            <p>${cardData.links1}</p>
+          </a>
+          <div class="create-line"></div>
+          <a href="#" class="projects__item-link_2--active__light">
+            <p>${cardData.links2}</p>
+          </a>
+          <nav class="projects__nav">
+            <a class="projects__item-link" href="#">${cardData.links3}</a>
+          </nav>
+        </div>
+      </article>
     `;
 }
 
-/* function resultOnLoad() {
-  document.getElementById("projects").insertAdjacentHTML() = createCard(cardData); 
-} */
+function renderCards() {
+  const container = document.getElementById("projects");
+  if (!container) {
+    console.error('No container with id "projects" found in the DOM');
+    return;
+  }
 
-for (const card in cards) {
-  console.log(cards[card]);
-  createCard(card);
+
+  container.innerHTML = "";
+
+  for (const key in cards) {
+    const cardHTML = createCard(cards[key]);
+    container.insertAdjacentHTML("beforeend", cardHTML);
+  }
 }
+
+
+document.addEventListener("DOMContentLoaded", renderCards);
