@@ -75,3 +75,33 @@ function renderCards() {
 }
 
 document.addEventListener("DOMContentLoaded", renderCards);
+
+const slides = document.querySelector(".projects__content");
+const slideCount = slides.children.length; //количество карточек  
+
+const prevButton = document.querySelector('.prev');
+const nextButton = document.querySelector('.next');
+
+let currentIndex = 0;
+
+function goToSlide(index) {
+  if (index < 0) {
+    index = slideCount - 1;
+  } else if (index >= slideCount) {
+    index = 0;
+  }
+
+  currentIndex = index;
+  slides.style.transform = `translateX(${-index * (slides.children[0].offsetWidth + 20)}px)`;
+  // 20 — это margin-right, учитывайте отступ между карточками
+}
+
+prevButton.addEventListener('click', () => {
+  goToSlide(currentIndex - 1);
+});
+
+nextButton.addEventListener('click', () => {
+  goToSlide(currentIndex + 1);
+});
+
+goToSlide(0);

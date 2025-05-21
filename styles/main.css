@@ -438,3 +438,19 @@
     border: 1px solid black;
     width: 163px;
 }
+
+.projects__content {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    scroll-behavior: smooth;
+    transition: transform 0.5s ease;
+}
+
+.projects__light {
+    min-width: 300px;
+    /* ширина одной карточки */
+    flex-shrink: 0;
+    margin-right: 20px;
+    /* отступ между карточками */
+}
