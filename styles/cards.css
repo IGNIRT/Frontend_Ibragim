@@ -1,336 +1,59 @@
-
+/* Анимация перемещения слайдов */
 .projects__content {
-    display: flex;
-    justify-content: center;
+    transition: transform 0.5s ease-in-out;
 }
 
-.projects__image {
-    background: rgba(248, 114, 0, 1);
-}
+/* Анимация появления карточек */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
 
-.projects__img {
-    background: rgba(248, 114, 0, 1);
-}
-
-.projects__title {
-    border: 0px solid rgba(232, 233, 234, 1);
-    font-size: 12px;
-    line-height: 17.4px;
-    width: 158px;
-    height: 18px;
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .projects__light {
-    position: relative;
-    text-align: center;
-    color: black;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.6s ease-out forwards;
+    transition: all 0.3s ease;
 }
 
-.projects__title__light {
-    position: absolute;
-    top: -20px;
-    right: 16px;
-    font-size: 12px;
-    line-height: 17.4px;
-    background: #E8E9EA;
+/* Задержка для последовательного появления */
+.projects__light:nth-child(1) {
+    animation-delay: 0.2s;
 }
 
-.projects__subtitle__light {
-    position: absolute;
-    top: 8px;
-    left: 16px;
-    font-size: 36px;
-    line-height: 39.6px
+.projects__light:nth-child(2) {
+    animation-delay: 0.4s;
 }
 
-.projects__slogan__light {
-    position: absolute;
-    top: 41px;
-    left: 16px;
-    font-size: 36px;
-    line-height: 39.6px;
+.projects__light:nth-child(3) {
+    animation-delay: 0.6s;
 }
 
-.projects__item-link--active__light {
-    position: absolute;
-    bottom: 110px;
-    left: 16px;
-    color: #F87200;
-    text-decoration: none;
-    margin: 32px;
-    font-size: 16px;
-    line-height: 18px;
+/* Hover-эффект */
+.projects__light:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
-.create-line {
-    position: absolute;
-    width: 389px;
-    border-top: 1px solid #252930CC;
-    bottom: 101px;
-    left: 16px;
-    margin: 32px;
+/* Анимация кнопок навигации */
+.prev,
+.next {
+    transition: transform 0.2s ease;
 }
 
-.projects__item-link_2--active__light {
-    position: absolute;
-    bottom: 48px;
-    left: 16px;
-    color: #F87200;
-    text-decoration: none;
-    margin: 32px;
-    font-size: 16px;
-    line-height: 18px;
+.prev:hover,
+.next:hover {
+    transform: scale(1.1);
 }
 
-.projects__nav {
-    position: absolute;
-    bottom: -18px;
-    left: 16px;
-    margin: 34px;
-}
-
-.projects__item-link {
-    text-decoration: none;
-    color: #252930;
-    font-size: 16px;
-    line-height: 23px;
-}
-
-.list__link {
-    padding-bottom: 149px;
-    margin: 32px;
-}
-
-.species__content {
-    display: flex;
-    justify-content: space-between;
-    width: 1400px;
-    height: 336.6px;
-}
-
-.species__card-2_3 {
-    display: flex;
-    justify-content: space-between;
-    margin: auto;
-    background-color: #E8E9EA;
-    height: 336px;
-    width: 984px;
-}
-
-.species__card-3 {
-    display: flex;
-    flex-wrap: nowrap;
-    position: absolute;
-    width: 213px;
-    right: 540px;
-}
-
-
-.species__title {
-    font-size: 36px;
-    line-height: 39px;
-    width: 359px;
-    height: 119px;
-    margin: 32px;
-    padding-bottom: 93px;
-}
-
-.species__title {
-    font-size: 36px;
-    line-height: 39px;
-    width: 359px;
-    height: 119px;
-    margin: 32px;
-    padding-bottom: 93px;
-}
-
-.species__text {
-    display: flex;
-    text-decoration: none;
-    color: black;
-    border-bottom: 2px solid #FF5F00;
-    font-size: 16px;
-    width: 183px;
-    line-height: 35px;
-    margin: 32px;
-}
-
-.subtitle {
-    font-size: 24px;
-    line-height: 26px;
-    margin: 78px;
-}
-
-.species__title-card-3 {
-    font-size: 24px;
-    line-height: 26px;
-}
-
-.species__item-link--strato-enterprice {
-    text-decoration: none;
-    color: #000000;
-}
-
-.species__item-link--strato-cloud-services {
-    text-decoration: none;
-    color: #000000;
-}
-
-.species__item-link--strato-enterprise {
-    text-decoration: none;
-    color: #000000;
-}
-
-.species__item-link--strato-cloud-services {
-    text-decoration: none;
-    color: #000000;
-}
-
-.species__energy {
-    margin: 39px;
-    padding-top: 18px;
-}
-
-.species__system-integrators {
-    margin: -13px;
-    padding: 68px;
-}
-
-.species__img {
-    padding-bottom: 5px;
-}
-
-.section__stories {
-    display: flex;
-    margin: 135px;
-}
-
-.stories__content {
-    display: flex;
-}
-
-.stories {
-    border: 1px solid black;
-    height: 350px;
-    width: 569px;
-}
-
-.create-line__2 {
-    position: relative;
-    width: 156px;
-    border-top: 1px solid #252930CC;
-    bottom: 18px;
-    left: 32px;
-    margin: 32px;
-}
-
-.stories__item-link--our-collaborations {
-    text-decoration: none;
-    color: #000000;
-    font-size: 16px;
-    line-height: 16px;
-    margin: 65px;
-}
-
-.stories__text {
-    font-size: 15px;
-    line-height: 23px;
-    margin: 65px;
-}
-
-.stories__title {
-    font-size: 35px;
-    line-height: 39px;
-    margin: 65px;
-}
-
-.section__products {
-    display: flex;
-}
-
-.products__content {
-    display: flex;
-    flex-wrap: nowrap;
-    background-color: rgba(248, 114, 0, 1);
-}
-
-.products__title {
-    font-size: 35px;
-    line-height: 39px;
-    margin: 72px;
-}
-
-.products__item-link--products-list {
-    text-decoration: none;
-    color: #000000;
-    font-size: 16px;
-    line-height: 16px;
-    margin: 72px;
-}
-
-.product__line {
-    position: relative;
-    width: 156px;
-    border-top: 1px solid #252930CC;
-    bottom: 18px;
-    left: 32px;
-    margin: 32px;
-}
-
-.news__product-news {
-    margin: 40px;
-    padding-top: 88px;
-}
-
-.news__title {
-    font-size: 36px;
-    line-height: 39px;
-}
-
-.news__user-col {
-    margin: 40px;
-}
-
-.news__card-1-2-3 {
-    display: flex;
-    justify-content: space-between;
-}
-
-.news__item-link--active {
-    color: rgba(248, 114, 0, 1);
-    text-decoration: none;
-}
-
-.news__item-link--documentation {
-    text-decoration: none;
-    color: #000000;
-}
-
-.news__content {
-    padding-top: 95px;
-}
-
-.news__doc {
-    background: rgba(248, 114, 0, 1);
-    width: 460px;
-    height: 483px;
-}
-
-.news__title--doc {
-    font-size: 36px;
-    line-height: 39px;
-}
-
-.doc__content {
-    margin: 32px;
-}
-
-.doc__line {
-    border: 1px solid black;
-    width: 163px;
-}
-
-.line__card-1-2-3 {
-    border: 1px solid black;
-    width: 163px;
+.prev:active,
+.next:active {
+    transform: scale(0.95);
 }
