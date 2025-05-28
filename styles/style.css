@@ -15,3 +15,6 @@
 @import "footer.css";
 
 @import "cards.css";
+
+@import url("form.css");
+@import url("preloader.css");

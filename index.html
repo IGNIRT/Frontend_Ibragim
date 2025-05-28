@@ -6,12 +6,18 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title></title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="stylesheet" href=" https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="styles/normalize.css">
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href=" https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
 
 <body>
+
+    <div class="preloader">
+        <div class="loader"></div>
+    </div>
+
+
     <div class="body__container">
         <header class="header container">
             <div class="header__div">
@@ -34,7 +40,7 @@
                         <li><a href="#" class="header__item-link-about_us">About us</a></li>
                     </ul>
                 </nav>
-                <button class="header__login" type="button">
+                <button class="header__login" type="button" id="header__login">
                     Partners Resources
                 </button>
             </div>
@@ -217,9 +223,44 @@
                 </div>
             </div>
         </footer>
+
     </div>
+    <div class="form" id="formModal">
+        <div class="contact-form-container">
+            <div class="form-menu">
+                <h2 class="form__name">Зарегистрироваться</h2>
+                <button class="exit-button">X</button>
+            </div>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="surname">Фамилия</label>
+                    <input type="text" id="surname" name="surname" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Имя</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Почта</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" name="password" autocomplete="on" required>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="submit-button">Зарегистрироваться</button>
+                    <button type="button" class="cansel-button">Выход</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
     <script src="script/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.2.8/swiper-bundle.min.js"></script>
 </body>
 
 </html>

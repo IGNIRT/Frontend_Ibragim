@@ -1,170 +1,247 @@
-const cards = {
-  card1: {
-    cardID: "1",
-    img: "/image/Rectangle_3.png",
-    title: "Light Commercial Buildings",
-    subtitle: "Strato",
-    content: "Light Commercial",
-    links1: "Extremely Simple",
-    links2: "Compatible with Strato Enterprise",
-    links3: "Learn more ->",
-  },
-  card2: {
-    cardID: "2",
-    img: "/image/Rectangle_4.png",
-    title: "Large Facilities",
-    subtitle: "Strato",
-    content: "Enterprise",
-    links1: "Flexible and Powerful Software",
-    links2: "Integrates with Strato Light Commercial",
-    links3: "Learn more ->",
-  },
-  card3: {
-    cardID: "3",
-    img: "/image/Ablaka.png",
-    title: "Add-on solution available",
-    subtitle: "Strato",
-    content: "Cloud Services",
-    links1: "Alerting and Backup",
-    links2: "Energy Efficiency Services",
-    links3: "Learn more ->",
-  },
-};
+'use strict';
+document.addEventListener('DOMContentLoaded', () => {
+  const cards = {
+    card1: {
+      cardID: "1",
+      title: "Light Commercial Buildings",
+      img: "/image/Rectangle_3.png",
+      subtitle: "Strato",
+      content: "Light Commercial",
+      links1: "Extremely Simple",
+      links2: "Compatible with Strato Enterprise",
+      links3: "Learn more ->",
+    },
+    card2: {
+      cardID: "2",
+      title: "Large Facilities",
+      img: "/image/Rectangle_4.png",
+      subtitle: "Strato",
+      content: "Enterprise",
+      links1: "Flexible and Powerful Software",
+      links2: "Integrates with Strato Light Commercial",
+      links3: "Learn more ->",
+    },
+    card3: {
+      cardID: "3",
+      title: "Add-on solution available",
+      img: "/image/Ablaka.png",
+      subtitle: "Strato",
+      content: "Cloud Services",
+      links1: "Alerting and Backup",
+      links2: "Energy Efficiency Services",
+      links3: "Learn more ->",
+    },
+  };
 
-function createCard(cardData) {
-  return `
-    <article class="projects__light animate-card" id="card-${cardData.cardID}">
-      <img class="projects__image" src="${cardData.img}" alt="${cardData.title}">
+  document.addEventListener('DOMContentLoaded', () => { // Настраиваем обработку события загрузки контента
+    setTimeout(() => {
+      const preloader = document.querySelector('.preloader'); // Находим наш элемент
+      preloader.innerHTML = ''; // Производим действия, возможно другие
+    }, 200);
+  });
+  
+
+
+  // Create HTML for a single card
+  function createCard(cardData) {
+    return `
+      <article class="projects__light animate-card" id="card-${cardData.cardID}">
       <p class="projects__title__light">${cardData.title}</p>
-      <p class="projects__subtitle__light">${cardData.subtitle}</p>
-      <p class="projects__slogan__light">${cardData.content}</p>
-      <div class="list__link">
-        <a href="#" class="projects__item-link--active__light">
-          <p>${cardData.links1}</p>
-        </a>
-        <div class="create-line"></div>
-        <a href="#" class="projects__item-link_2--active__light">
-          <p>${cardData.links2}</p>
-        </a>
-        <nav class="projects__nav">
-          <a class="projects__item-link" href="#">${cardData.links3}</a>
-        </nav>
-      </div>
-    </article>
-  `;
-}
-
-function renderCards() {
-  const container = document.getElementById("projects__content");
-  if (!container) {
-    console.error('Container not found');
-    return;
+        <img class="projects__image" src="${cardData.img}" alt="${cardData.title}">
+        <p class="projects__subtitle__light">${cardData.subtitle}</p>
+        <p class="projects__slogan__light">${cardData.content}</p>
+        <div class="list__link">
+          <a href="#" class="projects__item-link--active__light">
+            <p>${cardData.links1}</p>
+          </a>
+          <div class="create-line"></div>
+          <a href="#" class="projects__item-link_2--active__light">
+            <p>${cardData.links2}</p>
+          </a>
+          <nav class="projects__nav">
+            <a class="projects__item-link" href="#">${cardData.links3}</a>
+          </nav>
+        </div>
+      </article>
+    `;
   }
 
-  container.innerHTML = "";
+  // Render all cards to the container
+  function renderCards() {
+    const container = document.getElementById("projects__content");
+    if (!container) {
+      console.error('Container not found');
+      return;
+    }
 
-  // Добавляем карточки с задержкой для анимации
-  Object.keys(cards).forEach((key, index) => {
-    const cardData = cards[key];
-    if (cardData) {
+    container.innerHTML = "";
+
+    // Create cards with staggered animation delay
+    Object.keys(cards).forEach((key, index) => {
+      const cardData = cards[key];
       const cardHTML = createCard(cardData);
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = cardHTML;
       const cardElement = tempDiv.firstElementChild;
 
-      // Задержка для последовательного появления
+      // Set animation delay for each card
       cardElement.style.animationDelay = `${index * 0.2}s`;
-
       container.appendChild(cardElement);
-    }
-  });
+    });
 
-  initializeSlider();
-}
-
-function initializeSlider() {
-  const slidesContainer = document.querySelector(".projects__content");
-  const prevButton = document.querySelector('.prev');
-  const nextButton = document.querySelector('.next');
-  let currentIndex = 0;
-  let cardWidth = 0;
-  let isAnimating = false;
-
-  function updateSliderMetrics() {
-    if (slidesContainer.children.length > 0) {
-      cardWidth = slidesContainer.children[0].offsetWidth + 20; // width + margin
-    }
+    initializeSlider();
   }
 
-  function goToSlide(index) {
-    if (isAnimating) return;
+  // Initialize card slider functionality
+  function initializeSlider() {
+    const slidesContainer = document.querySelector(".projects__content");
+    let currentIndex = 0;
+    let cardWidth = 0;
+    let isAnimating = false;
 
-    isAnimating = true;
-    const totalSlides = slidesContainer.children.length;
+    // Calculate card width including margin
+    function updateSliderMetrics() {
+      if (slidesContainer.children.length > 0) {
+        const firstCard = slidesContainer.children[0];
+        const style = window.getComputedStyle(firstCard);
+        cardWidth = firstCard.offsetWidth +
+          parseInt(style.marginRight) +
+          parseInt(style.marginLeft);
+      }
+    }
 
-    if (index < 0) index = totalSlides - 1;
-    if (index >= totalSlides) index = 0;
+    // Navigate to specific slide
+    function goToSlide(index) {
+      if (isAnimating) return;
+      isAnimating = true;
 
-    slidesContainer.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-    slidesContainer.style.transform = `translateX(${-index * cardWidth}px)`;
+      const totalSlides = slidesContainer.children.length;
+      if (index < 0) index = totalSlides - 1;
+      if (index >= totalSlides) index = 0;
 
-    currentIndex = index;
+      slidesContainer.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+      slidesContainer.style.transform = `translateX(${-index * cardWidth}px)`;
+      currentIndex = index;
 
-    // Сброс анимации
-    setTimeout(() => {
-      isAnimating = false;
-      slidesContainer.style.transition = '';
-    }, 500);
-  }
+      // Reset animation flag
+      setTimeout(() => {
+        isAnimating = false;
+        slidesContainer.style.transition = '';
+      }, 500);
+    }
 
-  // Инициализация размеров
-  updateSliderMetrics();
-  window.addEventListener('resize', () => {
+    // Initialize and handle window resize
     updateSliderMetrics();
-    goToSlide(currentIndex);
-  });
+    window.addEventListener('resize', () => {
+      updateSliderMetrics();
+      goToSlide(currentIndex);
+    });
 
-  // Навигация
-  prevButton.addEventListener('click', () => {
-    goToSlide(currentIndex - 1);
-    addButtonClickAnimation(prevButton);
-  });
+    // Button click handlers
+    // prevButton.addEventListener('click', () => {
+    //   goToSlide(currentIndex - 1);
+    //   buttonClickAnimation(prevButton);
+    // });
 
-  nextButton.addEventListener('click', () => {
-    goToSlide(currentIndex + 1);
-    addButtonClickAnimation(nextButton);
-  });
+    // nextButton.addEventListener('click', () => {
+    //   goToSlide(currentIndex + 1);
+    //   buttonClickAnimation(nextButton);
+    // });
 
-  // Анимация клика на кнопки
-  function addButtonClickAnimation(button) {
-    button.style.transform = 'scale(0.95)';
-    setTimeout(() => {
-      button.style.transform = '';
-    }, 200);
+    // Button click animation
+    function buttonClickAnimation(button) {
+      button.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        button.style.transform = '';
+      }, 200);
+    }
+
+    // Initialize first slide
+    goToSlide(0);
   }
 
-  // Инициализация начальной позиции
-  goToSlide(0);
-}
+  // Add hover effects to cards
+  function setupHoverEffects() {
+    document.addEventListener('mouseover', (e) => {
+      const card = e.target.closest('.projects__light');
+      if (card) {
+        card.style.transition = 'all 0.3s ease';
+        card.style.transform = 'translateY(-5px) scale(1.02)';
+        card.style.boxShadow = '0 10px 30px rgba(0,0,0,0.12)';
+      }
+    });
 
-// Запуск при полной загрузке страницы
-document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener('mouseout', (e) => {
+      const card = e.target.closest('.projects__light');
+      if (card) {
+        card.style.transform = '';
+        card.style.boxShadow = '';
+      }
+    });
+  }
+
+  // Initialize everything
   renderCards();
-
-  // Добавляем обработчик для hover-эффектов
-  document.addEventListener('mouseover', (e) => {
-    const card = e.target.closest('.projects__light');
-    if (card) {
-      card.style.transform = 'translateY(-5px) scale(1.02)';
-      card.style.boxShadow = '0 10px 30px rgba(0,0,0,0.12)';
+  setupHoverEffects();
+  //Forms 
+  const form = document.getElementById('contactForm');
+  const dataInputs = document.querySelectorAll('input');
+  const modal = document.getElementById('formModal');
+  const openModalBtns = document.querySelectorAll('.header__login');
+  const closeModalBtn = document.querySelector('.exit-button');
+  const cancelBtn = document.querySelector('.cansel-button');
+  
+  
+  dataInputs.forEach((input, index) => {
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Tab') {
+        event.preventDefault();
+        const nextIndex = (index + 1) % dataInputs.length;
+        dataInputs[nextIndex].focus();
+      }
+    });
+  });
+  
+  
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+  
+    const formData = new FormData(form);
+    const formObject = {};
+  
+    formData.forEach((value, key) => {
+      formObject[key] = value;
+    });
+  
+    console.log(formObject);
+    closeModal();
+  });
+  
+  openModalBtns.forEach(btn => {
+    btn.addEventListener('click', function () {
+      modal.style.display = 'flex';
+      document.body.classList.add('modal-open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  
+  function closeModal() {
+    modal.style.display = 'none';
+    document.body.classList.remove('modal-open');
+    document.body.style.overflow = '';
+  }
+  
+  closeModalBtn.addEventListener('click', closeModal);
+  cancelBtn.addEventListener('click', closeModal);
+  
+  
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) {
+      closeModal();
     }
   });
-
-  document.addEventListener('mouseout', (e) => {
-    const card = e.target.closest('.projects__light');
-    if (card) {
-      card.style.transform = '';
-      card.style.boxShadow = '';
-    }
-  });
+  
+  
+  
 });
+
