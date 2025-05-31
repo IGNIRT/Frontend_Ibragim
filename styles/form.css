@@ -7,6 +7,8 @@
     top: 0;
     z-index: 1000;
     background-color: rgba(0, 0, 0, 0.74);
+    font-family: 'Roboto';
+    font-size: 400;
 }
 
 .contact-form-container {
@@ -79,7 +81,7 @@ input {
 
     font-size: 20px;
 
-    background-color: #28a745;
+    background-color: #ec6308;
     color: white;
 
     border: none;
@@ -88,7 +90,7 @@ input {
 }
 
 .submit-button:hover {
-    background-color: #218838;
+    background-color: #ec6308;
 }
 
 .exit-button {
@@ -98,13 +100,13 @@ input {
     border: none;
 }
 
-.cansel-button{
-     height: 45px;
+.cansel-button {
+    height: 45px;
     width: 100%;
 
     font-size: 20px;
 
-    background-color: #f44336;
+    background-color: #000000;
     color: white;
 
     border: none;
@@ -112,10 +114,10 @@ input {
     cursor: pointer;
 }
 
-.cansel-button:hover{
-    background-color: #c0352b;
+.cansel-button:hover {
+    background-color: #000000;
 }
 
-.form-buttons{
+.form-buttons {
     display: flex;
 }

@@ -1,5 +1,6 @@
 'use strict';
 document.addEventListener('DOMContentLoaded', () => {
+  // Данные для карточек продуктов
   const cards = {
     card1: {
       cardID: "1",
@@ -33,20 +34,24 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   };
 
-  document.addEventListener('DOMContentLoaded', () => { // Настраиваем обработку события загрузки контента
-    setTimeout(() => {
-      const preloader = document.querySelector('.preloader'); // Находим наш элемент
-      preloader.innerHTML = ''; // Производим действия, возможно другие
-    }, 200);
-  });
+ document.querySelector('.preloader').classList.remove('hidden');
+
+// Скрыть прелоадер после загрузки
+window.addEventListener('load', () => {
+  const preloader = document.querySelector('.preloader');
+  preloader.classList.add('hidden');
   
+  setTimeout(() => {
+    preloader.style.display = 'none';
+  }, 500);
+});
 
-
-  // Create HTML for a single card
+  // ================ КАРТОЧКИ ПРОДУКТОВ ================
+  // Создание HTML-разметки для одной карточки
   function createCard(cardData) {
     return `
       <article class="projects__light animate-card" id="card-${cardData.cardID}">
-      <p class="projects__title__light">${cardData.title}</p>
+        <p class="projects__title__light">${cardData.title}</p>
         <img class="projects__image" src="${cardData.img}" alt="${cardData.title}">
         <p class="projects__subtitle__light">${cardData.subtitle}</p>
         <p class="projects__slogan__light">${cardData.content}</p>
@@ -66,17 +71,17 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   }
 
-  // Render all cards to the container
+  // Отрисовка всех карточек в контейнере
   function renderCards() {
     const container = document.getElementById("projects__content");
     if (!container) {
-      console.error('Container not found');
+      console.error('Контейнер для карточек не найден');
       return;
     }
 
     container.innerHTML = "";
 
-    // Create cards with staggered animation delay
+    // Создание карточек с последовательной задержкой анимации
     Object.keys(cards).forEach((key, index) => {
       const cardData = cards[key];
       const cardHTML = createCard(cardData);
@@ -84,71 +89,63 @@ document.addEventListener('DOMContentLoaded', () => {
       tempDiv.innerHTML = cardHTML;
       const cardElement = tempDiv.firstElementChild;
 
-      // Set animation delay for each card
+      // Установка задержки для эффекта появления
       cardElement.style.animationDelay = `${index * 0.2}s`;
       container.appendChild(cardElement);
     });
 
+    // Инициализация слайдера после создания карточек
     initializeSlider();
   }
 
-  // Initialize card slider functionality
+  // ================ СЛАЙДЕР КАРТОЧЕК ================
   function initializeSlider() {
     const slidesContainer = document.querySelector(".projects__content");
+    if (!slidesContainer || slidesContainer.children.length === 0) return;
+
     let currentIndex = 0;
     let cardWidth = 0;
     let isAnimating = false;
 
-    // Calculate card width including margin
+    // Расчет размеров карточек для слайдера
     function updateSliderMetrics() {
-      if (slidesContainer.children.length > 0) {
-        const firstCard = slidesContainer.children[0];
-        const style = window.getComputedStyle(firstCard);
-        cardWidth = firstCard.offsetWidth +
-          parseInt(style.marginRight) +
-          parseInt(style.marginLeft);
-      }
+      const firstCard = slidesContainer.children[0];
+      const style = window.getComputedStyle(firstCard);
+      cardWidth = firstCard.offsetWidth +
+        parseInt(style.marginRight) +
+        parseInt(style.marginLeft);
     }
 
-    // Navigate to specific slide
+    // Переход к определенному слайду
     function goToSlide(index) {
       if (isAnimating) return;
       isAnimating = true;
 
       const totalSlides = slidesContainer.children.length;
+      // Корректировка индекса для циклического перехода
       if (index < 0) index = totalSlides - 1;
       if (index >= totalSlides) index = 0;
 
+      // Анимация перемещения
       slidesContainer.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
       slidesContainer.style.transform = `translateX(${-index * cardWidth}px)`;
       currentIndex = index;
 
-      // Reset animation flag
+      // Сброс флага анимации после завершения
       setTimeout(() => {
         isAnimating = false;
         slidesContainer.style.transition = '';
       }, 500);
     }
 
-    // Initialize and handle window resize
+    // Инициализация и обработка изменения размеров окна
     updateSliderMetrics();
     window.addEventListener('resize', () => {
       updateSliderMetrics();
       goToSlide(currentIndex);
     });
 
-    // Button click handlers
-    // prevButton.addEventListener('click', () => {
-    //   goToSlide(currentIndex - 1);
-    //   buttonClickAnimation(prevButton);
-    // });
-
-    // nextButton.addEventListener('click', () => {
-    //   goToSlide(currentIndex + 1);
-    //   buttonClickAnimation(nextButton);
-    // });
-
-    // Button click animation
+    // Анимация клика на кнопках (пример)
     function buttonClickAnimation(button) {
       button.style.transform = 'scale(0.95)';
       setTimeout(() => {
@@ -156,11 +153,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 200);
     }
 
-    // Initialize first slide
+    // Начальная позиция слайдера
     goToSlide(0);
   }
 
-  // Add hover effects to cards
+  // ================ ЭФФЕКТЫ ПРИ НАВЕДЕНИИ ================
   function setupHoverEffects() {
     document.addEventListener('mouseover', (e) => {
       const card = e.target.closest('.projects__light');
@@ -180,18 +177,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Initialize everything
-  renderCards();
-  setupHoverEffects();
-  //Forms 
+  // ================ ФОРМА ОБРАТНОЙ СВЯЗИ ================
   const form = document.getElementById('contactForm');
   const dataInputs = document.querySelectorAll('input');
   const modal = document.getElementById('formModal');
   const openModalBtns = document.querySelectorAll('.header__login');
   const closeModalBtn = document.querySelector('.exit-button');
   const cancelBtn = document.querySelector('.cansel-button');
-  
-  
+
+  // Обработка перехода между полями формы по Tab
   dataInputs.forEach((input, index) => {
     input.addEventListener('keydown', (event) => {
       if (event.key === 'Tab') {
@@ -201,22 +195,24 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-  
-  
+
+  // Обработка отправки формы
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-  
+
     const formData = new FormData(form);
     const formObject = {};
-  
+
+    // Сбор данных формы
     formData.forEach((value, key) => {
       formObject[key] = value;
     });
-  
-    console.log(formObject);
+
+    console.log('Данные формы:', formObject);
     closeModal();
   });
-  
+
+  // Открытие модального окна
   openModalBtns.forEach(btn => {
     btn.addEventListener('click', function () {
       modal.style.display = 'flex';
@@ -224,24 +220,26 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.style.overflow = 'hidden';
     });
   });
-  
+
+  // Закрытие модального окна
   function closeModal() {
     modal.style.display = 'none';
     document.body.classList.remove('modal-open');
     document.body.style.overflow = '';
   }
-  
+
+  // Обработчики кнопок закрытия
   closeModalBtn.addEventListener('click', closeModal);
   cancelBtn.addEventListener('click', closeModal);
-  
-  
-  modal.addEventListener('click', function (e) {
+
+  // Закрытие по клику вне модального окна
+  modal.addEventListener('click', (e) => {
     if (e.target === modal) {
       closeModal();
     }
   });
-  
-  
-  
-});
 
+  // ================ ИНИЦИАЛИЗАЦИЯ ПРИЛОЖЕНИЯ ================
+  renderCards();      // Отрисовка карточек
+  setupHoverEffects(); // Настройка эффектов наведения
+});
