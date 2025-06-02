@@ -7,6 +7,7 @@
 /*Шапка*/
 @import "header.css";
 /*Страница*/
+
 /*Главная страница*/
 @import "main.css";
 
@@ -19,3 +20,5 @@
 @import "form.css";
 
 @import "preloader.css";
+
+@import "media.css";

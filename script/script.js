@@ -1,8 +1,7 @@
 'use strict';
 document.addEventListener('DOMContentLoaded', () => {
-  // Данные для карточек продуктов
-  const cards = {
-    card1: {
+  const localCards = [
+    {
       cardID: "1",
       title: "Light Commercial Buildings",
       img: "/image/Rectangle_3.png",
@@ -12,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
       links2: "Compatible with Strato Enterprise",
       links3: "Learn more ->",
     },
-    card2: {
+    {
       cardID: "2",
       title: "Large Facilities",
       img: "/image/Rectangle_4.png",
@@ -22,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       links2: "Integrates with Strato Light Commercial",
       links3: "Learn more ->",
     },
-    card3: {
+    {
       cardID: "3",
       title: "Add-on solution available",
       img: "/image/Ablaka.png",
@@ -31,23 +30,46 @@ document.addEventListener('DOMContentLoaded', () => {
       links1: "Alerting and Backup",
       links2: "Energy Efficiency Services",
       links3: "Learn more ->",
-    },
-  };
+    }
+  ];
 
- document.querySelector('.preloader').classList.remove('hidden');
+  let cardsData = [...localCards]; // Начальные данные
 
-// Скрыть прелоадер после загрузки
-window.addEventListener('load', () => {
-  const preloader = document.querySelector('.preloader');
-  preloader.classList.add('hidden');
-  
-  setTimeout(() => {
-    preloader.style.display = 'none';
-  }, 500);
-});
+  document.querySelector('.preloader').classList.remove('hidden');
+
+  // Скрыть прелоадер после загрузки
+  window.addEventListener('load', () => {
+    const preloader = document.querySelector('.preloader');
+    preloader.classList.add('hidden');
+
+    setTimeout(() => {
+      preloader.style.display = 'none';
+    }, 500);
+  });
+
+  // ===================== ЗАГРУЗКА ДАННЫХ =====================
+  fetch('data.json')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Не удалось загрузить данные');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Проверяем, что данные в правильном формате
+      if (Array.isArray(data) && data.length > 0) {
+        cardsData = data;
+      }
+      renderCards();
+    })
+    .catch(error => {
+      console.error('Ошибка загрузки data.json:', error);
+      // Используем локальные данные при ошибке
+      cardsData = [...localCards];
+      renderCards();
+    });
 
   // ================ КАРТОЧКИ ПРОДУКТОВ ================
-  // Создание HTML-разметки для одной карточки
   function createCard(cardData) {
     return `
       <article class="projects__light animate-card" id="card-${cardData.cardID}">
@@ -82,8 +104,7 @@ window.addEventListener('load', () => {
     container.innerHTML = "";
 
     // Создание карточек с последовательной задержкой анимации
-    Object.keys(cards).forEach((key, index) => {
-      const cardData = cards[key];
+    cardsData.forEach((cardData, index) => {
       const cardHTML = createCard(cardData);
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = cardHTML;
@@ -144,14 +165,6 @@ window.addEventListener('load', () => {
       updateSliderMetrics();
       goToSlide(currentIndex);
     });
-
-    // Анимация клика на кнопках (пример)
-    function buttonClickAnimation(button) {
-      button.style.transform = 'scale(0.95)';
-      setTimeout(() => {
-        button.style.transform = '';
-      }, 200);
-    }
 
     // Начальная позиция слайдера
     goToSlide(0);
@@ -238,6 +251,48 @@ window.addEventListener('load', () => {
       closeModal();
     }
   });
+
+  /* Загрузка из data.json: */
+  fetch('data.json')
+    .then(response => {
+      if (!response.ok) throw new Error('Не удалось загрузить данные');
+      return response.json();
+    })
+    .then(data => {
+      if (Array.isArray(data) && data.length > 0) {
+        cardsData = data;
+      }
+      renderCards();
+    })
+    .catch(error => {
+      console.error('Ошибка загрузки data.json:', error);
+      cardsData = [...localCards];
+      renderCards();
+    });
+
+
+  function loadWithXHR() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'data.json');
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        try {
+          const data = JSON.parse(xhr.responseText);
+          if (Array.isArray(data) && data.length > 0) {
+            cardsData = data;
+          }
+        } catch (e) {
+          console.error('Ошибка парсинга JSON:', e);
+        }
+      }
+      renderCards();
+    };
+    xhr.onerror = function () {
+      console.error('Ошибка XHR');
+      renderCards();
+    };
+    xhr.send();
+  }
 
   // ================ ИНИЦИАЛИЗАЦИЯ ПРИЛОЖЕНИЯ ================
   renderCards();      // Отрисовка карточек
