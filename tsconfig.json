@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "target": "es2016",
+        "module": "none",
+        "allowJs": true,
+        "checkJs": true,
+        "sourceMap": true,
+        "outFile": "./scripts/main.js",
+        "lib": [
+            "ES2016",
+            "DOM"
+        ],
+        "strict": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true
+    },
+    "include": [
+        "ts/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
