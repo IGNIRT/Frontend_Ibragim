@@ -24,7 +24,7 @@
 }
 
 /* Полноэкранный режим для десктопов */
-@media (min-width: 1024px) and (max-aspect-ratio: 16/9) {
+@media (min-width: 1440px) and (max-aspect-ratio: 16/9) {
 
     :fullscreen .body__container,
     :-webkit-full-screen .body__container,

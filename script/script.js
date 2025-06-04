@@ -252,48 +252,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  /* Загрузка из data.json: */
-  fetch('data.json')
-    .then(response => {
-      if (!response.ok) throw new Error('Не удалось загрузить данные');
-      return response.json();
-    })
-    .then(data => {
-      if (Array.isArray(data) && data.length > 0) {
-        cardsData = data;
-      }
-      renderCards();
-    })
-    .catch(error => {
-      console.error('Ошибка загрузки data.json:', error);
-      cardsData = [...localCards];
-      renderCards();
-    });
-
-
-  function loadWithXHR() {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'data.json');
-    xhr.onload = function () {
-      if (xhr.status === 200) {
-        try {
-          const data = JSON.parse(xhr.responseText);
-          if (Array.isArray(data) && data.length > 0) {
-            cardsData = data;
-          }
-        } catch (e) {
-          console.error('Ошибка парсинга JSON:', e);
-        }
-      }
-      renderCards();
-    };
-    xhr.onerror = function () {
-      console.error('Ошибка XHR');
-      renderCards();
-    };
-    xhr.send();
-  }
-
   // ================ ИНИЦИАЛИЗАЦИЯ ПРИЛОЖЕНИЯ ================
   renderCards();      // Отрисовка карточек
   setupHoverEffects(); // Настройка эффектов наведения
