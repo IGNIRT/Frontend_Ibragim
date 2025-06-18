@@ -93,83 +93,150 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   }
 
-  // Отрисовка всех карточек в контейнере
+ // ================ ОБНОВЛЕННАЯ ФУНКЦИЯ ОТРИСОВКИ КАРТОЧЕК ================
   function renderCards() {
     const container = document.getElementById("projects__content");
-    if (!container) {
-      console.error('Контейнер для карточек не найден');
-      return;
+    if (!container) return;
+
+    // Создаем контейнер-обертку если его нет
+    let wrapper = container.parentElement;
+    if (!wrapper.classList.contains('projects__container')) {
+      wrapper = document.createElement('div');
+      wrapper.className = 'projects__container';
+      container.parentNode.insertBefore(wrapper, container);
+      wrapper.appendChild(container);
     }
 
     container.innerHTML = "";
+    container.classList.add('projects__content');
 
-    // Создание карточек с последовательной задержкой анимации
+    // Создаем карточки
     cardsData.forEach((cardData, index) => {
       const cardHTML = createCard(cardData);
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = cardHTML;
       const cardElement = tempDiv.firstElementChild;
-
-      // Установка задержки для эффекта появления
+      
+      // Установка задержки анимации
       cardElement.style.animationDelay = `${index * 0.2}s`;
       container.appendChild(cardElement);
     });
 
-    // Инициализация слайдера после создания карточек
+    // Инициализация слайдера
     initializeSlider();
   }
 
-  // ================ СЛАЙДЕР КАРТОЧЕК ================
+  // ================ ОБНОВЛЕННАЯ ФУНКЦИЯ ОТРИСОВКИ КАРТОЧЕК ================
+  function renderCards() {
+    const container = document.getElementById("projects__content");
+    if (!container) return;
+
+    // Создаем контейнер-обертку если его нет
+    let wrapper = container.parentElement;
+    if (!wrapper || !wrapper.classList.contains('projects__container')) {
+      wrapper = document.createElement('div');
+      wrapper.className = 'projects__container';
+      container.parentNode.insertBefore(wrapper, container);
+      wrapper.appendChild(container);
+    }
+
+    container.innerHTML = "";
+    container.classList.add('projects__content');
+
+    // Создаем карточки
+    cardsData.forEach((cardData, index) => {
+      const cardHTML = createCard(cardData);
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = cardHTML;
+      const cardElement = tempDiv.firstElementChild;
+      
+      // Установка задержки анимации
+      cardElement.style.animationDelay = `${index * 0.2}s`;
+      container.appendChild(cardElement);
+    });
+
+    // Инициализация слайдера
+    initializeSlider();
+  }
+
+  // ================ ОБНОВЛЕННЫЙ СЛАЙДЕР СО СКРЫТЫМИ КАРТОЧКАМИ ================
   function initializeSlider() {
+    const container = document.querySelector(".projects__container");
     const slidesContainer = document.querySelector(".projects__content");
     if (!slidesContainer || slidesContainer.children.length === 0) return;
 
     let currentIndex = 0;
     let cardWidth = 0;
+    let containerWidth = 0;
     let isAnimating = false;
+    let autoScrollInterval = null;
 
-    // Расчет размеров карточек для слайдера
-    function updateSliderMetrics() {
+    // Расчет размеров элементов
+    function updateMetrics() {
       const firstCard = slidesContainer.children[0];
-      const style = window.getComputedStyle(firstCard);
-      cardWidth = firstCard.offsetWidth +
-        parseInt(style.marginRight) +
-        parseInt(style.marginLeft);
+      cardWidth = firstCard.offsetWidth;
+      containerWidth = container.offsetWidth;
+      
+      // Установка фиксированной ширины для контейнера
+      slidesContainer.style.width = `${cardWidth * slidesContainer.children.length}px`;
     }
 
-    // Переход к определенному слайду
+    // Переход к слайду
     function goToSlide(index) {
       if (isAnimating) return;
       isAnimating = true;
 
       const totalSlides = slidesContainer.children.length;
-      // Корректировка индекса для циклического перехода
       if (index < 0) index = totalSlides - 1;
       if (index >= totalSlides) index = 0;
 
-      // Анимация перемещения
-      slidesContainer.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-      slidesContainer.style.transform = `translateX(${-index * cardWidth}px)`;
+      // Сначала скрываем текущую активную карточку
+      if (slidesContainer.children[currentIndex]) {
+        slidesContainer.children[currentIndex].classList.remove('active');
+      }
+
+      // Показываем новую активную карточку
+      slidesContainer.children[index].classList.add('active');
+
+      // Центрирование активной карточки
+      const offset = (containerWidth / 2) - (cardWidth / 2) - (index * cardWidth);
+      
+      slidesContainer.style.transform = `translateX(${offset}px)`;
       currentIndex = index;
 
-      // Сброс флага анимации после завершения
       setTimeout(() => {
         isAnimating = false;
-        slidesContainer.style.transition = '';
       }, 500);
     }
 
-    // Инициализация и обработка изменения размеров окна
-    updateSliderMetrics();
+    // Автоматическая прокрутка
+    function startAutoScroll() {
+      if (slidesContainer.children.length < 2) return;
+      autoScrollInterval = setInterval(() => {
+        goToSlide(currentIndex + 1);
+      }, 3000);
+    }
+
+    function stopAutoScroll() {
+      clearInterval(autoScrollInterval);
+    }
+
+    // Инициализация слайдера
+    updateMetrics();
     window.addEventListener('resize', () => {
-      updateSliderMetrics();
+      updateMetrics();
       goToSlide(currentIndex);
     });
 
-    // Начальная позиция слайдера
-    goToSlide(0);
-  }
+    // Пауза при наведении
+    container.addEventListener('mouseenter', stopAutoScroll);
+    container.addEventListener('mouseleave', startAutoScroll);
 
+    // Начальная инициализация
+    goToSlide(0);
+    startAutoScroll();
+  }
+  
   // ================ ЭФФЕКТЫ ПРИ НАВЕДЕНИИ ================
   function setupHoverEffects() {
     document.addEventListener('mouseover', (e) => {
