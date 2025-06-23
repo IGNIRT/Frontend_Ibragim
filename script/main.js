@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ===================== ЗАГРУЗКА ДАННЫХ =====================
-  fetch('data/cards.json')
+  fetch('data.json')
     .then(response => {
       if (!response.ok) {
         throw new Error('Не удалось загрузить данные');
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   }
 
- // ================ ОБНОВЛЕННАЯ ФУНКЦИЯ ОТРИСОВКИ КАРТОЧЕК ================
+  // ================ ОБНОВЛЕННАЯ ФУНКЦИЯ ОТРИСОВКИ КАРТОЧЕК ================
   function renderCards() {
     const container = document.getElementById("projects__content");
     if (!container) return;
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = cardHTML;
       const cardElement = tempDiv.firstElementChild;
-      
+
       // Установка задержки анимации
       cardElement.style.animationDelay = `${index * 0.2}s`;
       container.appendChild(cardElement);
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = cardHTML;
       const cardElement = tempDiv.firstElementChild;
-      
+
       // Установка задержки анимации
       cardElement.style.animationDelay = `${index * 0.2}s`;
       container.appendChild(cardElement);
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const firstCard = slidesContainer.children[0];
       cardWidth = firstCard.offsetWidth;
       containerWidth = container.offsetWidth;
-      
+
       // Установка фиксированной ширины для контейнера
       slidesContainer.style.width = `${cardWidth * slidesContainer.children.length}px`;
     }
@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Центрирование активной карточки
       const offset = (containerWidth / 2) - (cardWidth / 2) - (index * cardWidth);
-      
+
       slidesContainer.style.transform = `translateX(${offset}px)`;
       currentIndex = index;
 
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
     goToSlide(0);
     startAutoScroll();
   }
-  
+
   // ================ ЭФФЕКТЫ ПРИ НАВЕДЕНИИ ================
   function setupHoverEffects() {
     document.addEventListener('mouseover', (e) => {
